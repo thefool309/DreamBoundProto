@@ -134,6 +134,8 @@ public class GameView extends SurfaceView implements Runnable {
                 player.setIsMoving(true);
                 break;
         }
+        player.isColliding = false;
+
         return true;
     }
 

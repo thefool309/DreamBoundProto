@@ -85,6 +85,8 @@ public class GameObject implements Serializable {
     }
 
     public float velocity = 0.00f;
+    public float currentVelocityX = 0.0f;
+    public float currentVelocityY = 0.0f;
 
     public boolean isTile = false;
     public boolean hasCollision = false;
@@ -94,6 +96,7 @@ public class GameObject implements Serializable {
     public boolean isNPC = false;
     public boolean canMove = false;
     public boolean isMoving = false;
+    public boolean isColliding = false;
 
     GameObject(float x, float y, float width, float height) {
         box = new RectangleBox(x, y, width, height);
@@ -166,6 +169,14 @@ public class GameObject implements Serializable {
     public float getVelocity() { return velocity; }
 
     public void setVelocity(float velocity) { this.velocity = velocity; }
+
+    public boolean checkCollision(GameObject target) {
+        isColliding = getX() < target.getX() + target.getWidth() &&
+                getX() + getWidth() > target.getX() &&
+                getY() < target.getY() + target.getHeight() &&
+                getY() + getHeight() > target.getY();
+        return isColliding;
+    }
 
     //change dimensions function
     public void changeDimensions(int width, int height) {

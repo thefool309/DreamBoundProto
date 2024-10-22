@@ -43,9 +43,10 @@ public class CollisionHandler {
                 if (!target.getHasCollision() || !object.getHasCollision()) {
                     continue;
                 }
-                else if (checkCollision(object, target)) {
+                else if (object.checkCollision(target)) {
                     if(object.getIsPlayer() || target.getIsPlayer()) {
                         collisionWithObjectEvent(object, target);
+                        
                     }
                     else {
                         collisionFromCreaturesToNonPlayer();
@@ -77,8 +78,22 @@ public class CollisionHandler {
 
 
     private void collisionWithObjectEvent(GameObject object, GameObject target) {
+        //Calculate the distance vector between centers
+        while(object.isColliding){
+            float distanceX = target.getX() - object.getX();
+            float distanceY = target.getY() - object.getY();
 
+        //Calculate the normal vector
+            float normalX = (float) (distanceX / Math.sqrt((distanceX * distanceX + distanceY * distanceY)));
+            float normalY = (float) (distanceY / Math.sqrt((distanceX * distanceX + distanceY * distanceY)));
 
+        //Calculate the dot product of the velocity and normal vector
+            float dot = object.getVelocity() * normalX + object.getVelocity() * normalY;
+
+            object.setX(object.getVelocity() - (2 * dot * normalX));
+            object.setY(object.getVelocity() - (2 * dot * normalY));
+            object.setIsMoving(false);
+        }
 
         Log.i("Player Collision Detected", "Collision with object event");
     }

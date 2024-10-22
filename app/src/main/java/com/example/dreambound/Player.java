@@ -21,7 +21,7 @@ public class Player extends gameCharacter implements Serializable {
 
     public void playerMovement(float targetX, float targetY) {
         if (getIsMoving()) {
-
+            setVelocity(5.0f);
             float playerX = getX();
             float playerY = getY();
             float deltaX = targetX - playerX;
@@ -29,10 +29,11 @@ public class Player extends gameCharacter implements Serializable {
             float distance = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
             if (distance > getVelocity()) {
-                float stepX = getVelocity() * (deltaX / distance);
-                float stepY = getVelocity() * (deltaY / distance);
-                setX(playerX + stepX);
-                setY(playerY + stepY);
+                currentVelocityX = getVelocity() * (deltaX / distance);
+                currentVelocityY = getVelocity() * (deltaY / distance);
+
+                setX(playerX + currentVelocityX);
+                setY(playerY + currentVelocityY);
             } else {
                 setX(targetX);
                 setY(targetY);
