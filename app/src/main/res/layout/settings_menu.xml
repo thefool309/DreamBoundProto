@@ -11,15 +11,28 @@
         android:orientation="horizontal">
 
     <Button
-            android:layout_width="125pt"
-            android:layout_height="25pt"
-            android:layout_marginTop="270dp"
+            android:layout_width="294dp"
+            android:layout_height="77dp"
             android:gravity="center"
             android:text="@string/log_out"
             android:textColor="#ffb6c1"
             android:textSize="20sp"
             android:id="@+id/logout_btn"
+            android:layout_marginTop ="60dp"
+            android:layout_centerHorizontal ="true"
 
-           />
+    />
+    <Button
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="#ffb6c1"
+            android:textSize="20sp"
+            android:id="@+id/Cancel_btn"
+            android:layout_marginTop="200dp"
+            android:layout_centerHorizontal="true"
+            />
+
 
 </RelativeLayout>
