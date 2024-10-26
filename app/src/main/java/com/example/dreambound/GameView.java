@@ -43,8 +43,7 @@ public class GameView extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         gameDataManager = new GameDataManager();
         createObjects();
-        gameEngine = new GameEngine();
-        gameEngine.
+        startEngineAndPullData();
         gameDataManager.LoadGameState(context, player, creatures);
         targetX = player.getX();
         targetY = player.getY();
