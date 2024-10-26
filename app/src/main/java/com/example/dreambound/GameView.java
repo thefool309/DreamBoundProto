@@ -20,7 +20,7 @@ public class GameView extends SurfaceView implements Runnable {
     private float targetX, targetY;
     private static final float playerMovementSpeed = 5.0f;
     private static final float enemiesDetectionRadius = 400.0f;
-    //private GameDataManager gameDataManager;
+    private GameDataManager gameDataManager;
     private boolean isMoving;
     private CollisionHandler collisionHandler;
     private Obstacle bush1;
@@ -32,10 +32,10 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(Context context) {
         super(context);
         surfaceHolder = getHolder();
-        //gameDataManager = new GameDataManager();
+        gameDataManager = new GameDataManager();
         player = new Player(100, 500, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
         creatureEntity = new CreatureEntity(2200, 500, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
-        //gameDataManager.LoadGameState(getContext(),player,creatureEntity);
+        gameDataManager.LoadGameState(getContext(),player,creatureEntity);
         bush1 = new Obstacle(1000, 500);
         walkOnMe1 = new Tile(1000, 400);
         walkOnMe2 = new Tile(1000, 600);
@@ -154,9 +154,9 @@ public class GameView extends SurfaceView implements Runnable {
         isPlaying = true;
         gameThread = new Thread(this);
         gameThread.start();
-        //gameDataManager.LoadGameState(getContext(), player, creatureEntity);
-        //player.setX(player.getX());
-        //player.setY(player.getY());
+        gameDataManager.LoadGameState(getContext(), player, creatureEntity);
+        player.setX(player.getX());
+        player.setY(player.getY());
     }
 
     public void pause() {
@@ -166,7 +166,7 @@ public class GameView extends SurfaceView implements Runnable {
         } catch (InterruptedException e) {
             Log.e("Interrupted", "Interrupted while pausing");      //cleaned up exception to get more receptive feedback
         }
-        //gameDataManager.SaveGameState(getContext(), player, creatureEntity);
+        gameDataManager.SaveGameState(getContext(), player, creatureEntity);
     }
 
     private void control() {
