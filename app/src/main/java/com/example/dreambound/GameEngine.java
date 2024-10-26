@@ -76,15 +76,5 @@ public class GameEngine {
             }
         }
     }
-    private void startEngineAndPullData(){
-        if (gameEngine == null) {
-            gameEngine = new GameEngine(getContext());
-            creatures = gameEngine.getCreaturesLoadedIn();
-            staticObjects = gameEngine.getStaticObjects();
-            allObjects = gameEngine.getAllObjects();
-            obstacles = gameEngine.getObstacles();
-            collidables = gameEngine.getCollisionObjects();
-            player = gameEngine.getPlayer();
-        }
-    }
+
 }
