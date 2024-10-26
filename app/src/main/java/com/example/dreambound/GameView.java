@@ -19,7 +19,6 @@ public class GameView extends SurfaceView implements Runnable {
     private GameObject creatureEntityToRemove = new GameObject(0, 0, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
     private SurfaceHolder surfaceHolder;
     private float targetX, targetY;
-    private static final float playerMovementSpeed = 5.0f;
     private static final float enemiesDetectionRadius = 400.0f;
 
     private long startTime, loopTime;
@@ -38,6 +37,8 @@ public class GameView extends SurfaceView implements Runnable {
     private ArrayList<GameObject> collidables = new ArrayList<>();
     private ArrayList<GameObject> staticObjects = new ArrayList<>();
     private ArrayList<GameObject> allObjects = new ArrayList<>();
+    private ArrayList<Obstacle> obstacles = new ArrayList<>();
+
 
     public GameView(Context context) {
         super(context);
@@ -121,11 +122,19 @@ public class GameView extends SurfaceView implements Runnable {
             Canvas canvas = surfaceHolder.lockCanvas();
             if (canvas != null) {
                 canvas.drawColor(Color.BLACK);
-
-
-                for (GameObject object : allObjects){
+                for(GameObject floor : allObjects){
+                    floor.draw(canvas);
+                }
+                for (Obstacle object : obstacles){
                     object.draw(canvas);
                 }
+                for(GameObject walls : collidables){
+                    walls.draw(canvas);
+                }
+                for (CreatureEntity creature : creatures){
+                    creature.draw(canvas);
+                }
+
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }
