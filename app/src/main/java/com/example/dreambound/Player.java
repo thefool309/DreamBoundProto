@@ -15,17 +15,17 @@ public class Player extends gameCharacter implements Serializable {
         initPaint(Color.RED);
         setCanMove();
         setVelocity(5.00f);
+
     }
     //accessors and mutators
 
 
     public void playerMovement(float targetX, float targetY) {
         if (getIsMoving()) {
-            setVelocity(5.0f);
             float playerX = getX();
             float playerY = getY();
-            float deltaX = targetX - playerX;
-            float deltaY = targetY - playerY;
+            deltaX = targetX - playerX;
+            deltaY = targetY - playerY;
             float distance = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
             if (distance > getVelocity()) {

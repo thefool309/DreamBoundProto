@@ -85,7 +85,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         startTime = SystemClock.uptimeMillis();
+
         player.playerMovement(targetX, targetY);
+
         for (CreatureEntity entity: creatures) {
             entity.followPlayer(player);
         }
@@ -134,7 +136,7 @@ public class GameView extends SurfaceView implements Runnable {
                 player.setIsMoving(true);
                 break;
         }
-        player.isColliding = false;
+
 
         return true;
     }

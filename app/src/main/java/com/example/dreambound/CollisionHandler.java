@@ -31,10 +31,10 @@ public class CollisionHandler {
     }
     //generic check between two objects for collision
     private boolean checkCollision(GameObject object, GameObject target) {
-        return object.getX() < target.getX() + target.getWidth() &&
-                object.getX() + object.getWidth() > target.getX() &&
-                object.getY() < target.getY() + target.getHeight() &&
-                object.getY() + object.getHeight() > target.getY();
+        return object.getX() <= target.getX() + target.getWidth() &&
+                object.getX() + object.getWidth() >= target.getX() &&
+                object.getY() <= target.getY() + target.getHeight() &&
+                object.getY() + object.getHeight() >= target.getY();
     }
 
     void HandleCollision() {
@@ -46,7 +46,7 @@ public class CollisionHandler {
                 else if (object.checkCollision(target)) {
                     if(object.getIsPlayer() || target.getIsPlayer()) {
                         collisionWithObjectEvent(object, target);
-                        
+
                     }
                     else {
                         collisionFromCreaturesToNonPlayer();
@@ -63,7 +63,7 @@ public class CollisionHandler {
                 if (!target.getHasCollision() || !object.getHasCollision()) {
                     continue;
                 }
-                else if (checkCollision(object, target)) {
+                else if (object.checkCollision(target)) {
                     if (object.getIsPlayer() || target.getIsPlayer()) {
                         collisionWithCreatureEntitiesEvent();
                     }
@@ -79,23 +79,39 @@ public class CollisionHandler {
 
     private void collisionWithObjectEvent(GameObject object, GameObject target) {
         //Calculate the distance vector between centers
-        while(object.isColliding){
-            float distanceX = target.getX() - object.getX();
-            float distanceY = target.getY() - object.getY();
 
-        //Calculate the normal vector
-            float normalX = (float) (distanceX / Math.sqrt((distanceX * distanceX + distanceY * distanceY)));
-            float normalY = (float) (distanceY / Math.sqrt((distanceX * distanceX + distanceY * distanceY)));
+        final float BUFFER = 0.01f;
 
-        //Calculate the dot product of the velocity and normal vector
-            float dot = object.getVelocity() * normalX + object.getVelocity() * normalY;
+        // First, handle the horizontal (X-axis) movement
+        float newX = object.getX() + object.deltaX; // Calculate the new X position
+        object.setX(newX);  // Temporarily set the new X position
 
-            object.setX(object.getVelocity() - (2 * dot * normalX));
-            object.setY(object.getVelocity() - (2 * dot * normalY));
-            object.setIsMoving(false);
+        // Check for X-axis collision and correct if necessary
+        if (object.getIsColliding()) {
+            if (object.deltaX > 0) {
+                object.setX(target.getX() - object.getWidth() - BUFFER);  // Snap object to the left of target
+            } else if (object.deltaX < 0) {
+                object.setX(target.getX() + target.getWidth() + BUFFER);  // Snap object to the right of target
+            }
+        }
+
+        //Handle the vertical (Y-axis) movement
+        float newY = object.getY() + object.deltaY; // Calculate the new Y position
+        object.setY(newY);
+
+        // Check for Y-axis collision and correct if necessary
+        if (object.getIsColliding()) {
+            if (object.deltaY > 0) {
+                object.setY(target.getY() - object.getHeight() - BUFFER);  // Snap object to the bottom of target
+            } else if (object.deltaY < 0) {
+                object.setY(target.getY() + target.getHeight() + BUFFER);  // Snap object to the top of target
+            }
         }
 
         Log.i("Player Collision Detected", "Collision with object event");
+        Log.i("Collision Info", "Colliding on X: " + object.deltaX + ", Y: " + object.deltaY);
+        Log.i("Position Adjustment", "Player X: " + object.getX() + ", Player Y: " + object.getY());
+
     }
 
     private void collisionWithCreatureEntitiesEvent() {

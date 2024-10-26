@@ -24,6 +24,8 @@ enum BoxTag {
 }
 
 public class GameObject implements Serializable {
+
+
     //nested classes
     public static class Point implements Serializable {
         public float x;
@@ -87,6 +89,8 @@ public class GameObject implements Serializable {
     public float velocity = 0.00f;
     public float currentVelocityX = 0.0f;
     public float currentVelocityY = 0.0f;
+    public float deltaX = 0.0f;
+    public float deltaY = 0.0f;
 
     public boolean isTile = false;
     public boolean hasCollision = false;
@@ -106,17 +110,23 @@ public class GameObject implements Serializable {
     }
 
     //accessors and mutators
-    public void setX(float x) {
-        box.position.x = x;
-    }
+    public float getX() { return box.position.x; }
+
+    public float getY() { return box.position.y; }
+
+    public void setX(float x) { box.position.x = x; }
 
     public void setY(float y) {
         box.position.y = y;
     }
 
-    public float getX() { return box.position.x; }
+    public float getDeltaX() { return deltaX; }
 
-    public float getY() { return box.position.y; }
+    public float getDeltaY() { return deltaY; }
+
+    public void setDeltaX(float deltaX) { this.deltaX = deltaX; }
+
+    public void setDeltaY(float deltaY) { this.deltaY = deltaY; }
 
     public boolean getIsCharacter() { return isCharacter; }
 
@@ -170,11 +180,21 @@ public class GameObject implements Serializable {
 
     public void setVelocity(float velocity) { this.velocity = velocity; }
 
+    public boolean getIsColliding() { return isColliding; }
+
+    public void setIsColliding() { isColliding = true; }
+
+    public void setIsColliding(boolean colliding) { isColliding = colliding; }
+
     public boolean checkCollision(GameObject target) {
         isColliding = getX() < target.getX() + target.getWidth() &&
                 getX() + getWidth() > target.getX() &&
                 getY() < target.getY() + target.getHeight() &&
                 getY() + getHeight() > target.getY();
+        if (isColliding){
+            target.setIsColliding();
+        }
+
         return isColliding;
     }
 
