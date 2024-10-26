@@ -33,7 +33,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Tile walkOnMe1;
     private Tile walkOnMe2;
 
-    private ArrayList<CreatureEntity> creatures = new ArrayList<>();
+    private ArrayList<GameObject> creatures = new ArrayList<>();
     private ArrayList<GameObject> collidables = new ArrayList<>();
     private ArrayList<GameObject> staticObjects = new ArrayList<>();
     private ArrayList<GameObject> allObjects = new ArrayList<>();
@@ -41,16 +41,19 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(Context context) {
         super(context);
         surfaceHolder = getHolder();
-        //start engine
-        if (gameEngine == null) {
-            startEngineAndPullData();
-        }
-        //load game if there is one
         gameDataManager = new GameDataManager();
         gameDataManager.LoadGameState(context, player, creatures);
         targetX = player.getX();
         targetY = player.getY();
-        collisionHandler = new CollisionHandler(context, collidables, staticObjects);
+        collisionHandler = new CollisionHandler(context, collidables);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(width, height);
     }
 
     @Override
@@ -91,6 +94,8 @@ public class GameView extends SurfaceView implements Runnable {
         for (CreatureEntity entity: creatures) {
             entity.followPlayer(player);
         }
+
+        creatureEntity.followPlayer(player, enemiesDetectionRadius);
         collisionHandler.HandleCollision();
         checkBoundaries();
     }
@@ -136,8 +141,6 @@ public class GameView extends SurfaceView implements Runnable {
                 player.setIsMoving(true);
                 break;
         }
-
-
         return true;
     }
 
@@ -161,14 +164,10 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void control() {
-        loopTime = SystemClock.uptimeMillis() - startTime;
-        //pausing here to make sure we update the right number of times per second
-        if (loopTime < Constants.DELAY) {
-            try {
-                Thread.sleep(Constants.DELAY - loopTime);
-            } catch (InterruptedException e) {
-                Log.e("Interrupted", "Interrupted while sleeping");
-            }
+        try {
+            Thread.sleep(17);
+        } catch (InterruptedException e) {
+            Log.e("Interrupted", "Interrupted while sleeping");    //cleaned up exception to get more receptive feedback
         }
     }
 }

@@ -206,8 +206,8 @@ public class GameObject implements Serializable {
 
     //set position functions
     public void setPosition(float _x, float _y) {
-        box.position.x = _x - box.width / 2;
-        box.position.y = _y - box.height / 2;
+        box.position.x = _x;
+        box.position.y = _y;
     }
 
     public void setPosition(Point point){

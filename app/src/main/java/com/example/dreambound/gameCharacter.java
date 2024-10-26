@@ -20,6 +20,21 @@ public class gameCharacter extends GameObject implements Serializable {
         setHasCollision(true);
         stats = new Stats(); //default character Stats
     }
+
+    public boolean isAlive() {
+        return stats.Health > 0;
+    }
+
+    public int getHealth() {
+        return stats.Health;
+    }
+
+    public void takeDamage(int damage) {
+        stats.Health -= damage;
+        if (stats.Health < 0) {
+            stats.Health = 0;
+        }
+    }
 }
 
 
