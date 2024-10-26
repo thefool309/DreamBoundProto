@@ -2,6 +2,8 @@ package com.example.dreambound;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class CollisionHandler {
@@ -24,6 +26,11 @@ public class CollisionHandler {
         this.context = context;
         this.objects = staticObjects;
         this.collidables = collidables;
+        if (context instanceof CollisionListener) {
+            this.listener = (CollisionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement CollisionListener");
+        }
 
         gridHeight = (int) (windowHeight / Constants.CHUNK_SIZE);
         gridWidth = (int) (windowWidth / Constants.CHUNK_SIZE);
@@ -144,8 +151,12 @@ public class CollisionHandler {
 
     private void collisionWithCreatureEntitiesEvent() {
         Log.i("Collision Detected", "Collision with Creature event");
-        if (listener != null) {
+        try{
             listener.onCollisionWithCreature();
+        }
+        catch(Exception e){
+            Log.e("Collision Listener Failed", e.toString());
+            Toast.makeText(context, "Collision Listener Failed Check logs", Toast.LENGTH_LONG).show();
         }
     }
 
