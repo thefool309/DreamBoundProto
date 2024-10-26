@@ -89,6 +89,10 @@ public class GameEngine {
         creaturesLoadedIn.add(enemy1);
         creaturesLoadedIn.add(enemy2);
 
+        collideables.add(enemy1);
+        collideables.add(enemy2);
+        collideables.add(player);
+
         obstacles.add(wall1);
         allObjects.add(wall1);
         obstacles.add(wall2);

@@ -71,7 +71,7 @@ public class CollisionHandler {
 
                     }
                     else {
-                        collisionFromCreaturesToObjectsEvent();
+                        collisionWithObjectEvent(object, target);
                     }
 
                 }
@@ -90,7 +90,7 @@ public class CollisionHandler {
                         collisionWithCreatureEntitiesEvent();
                     }
                     else {
-                        collisionFromCreaturesToObjectsEvent();
+                        collisionWithObjectEvent(object, target);
                     }
                 }
             }
