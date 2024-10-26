@@ -27,24 +27,24 @@ public class MainActivity extends AppCompatActivity {
         // Initialize FaeDex
         faeDex = new FaeDex();
 
-        // Create Faes
-        Fae fae1 = new Fae("Aeloria", "friendly", "Healing Light", "A gentle Fae with healing powers.", 100, 150, 50, 50);
-        Fae fae2 = new Fae("Nerion", "enemy", "Shadow Strike", "A cunning Fae that attacks from the shadows.", 200, 250, 50, 50);
+        // Create Faes Type Friendly
+        Fae fae1 = new Fae("Aeloria", "Healing Light", "A gentle Fae with healing powers.", 100, 150, 50, 50);
+        Fae fae2 = new Fae("Nerion" , "Shadow Strike", "A cunning Fae that attacks from the shadows.", 200, 250, 50, 50);
         faeDex.addFae(fae1);
         faeDex.addFae(fae2);
 
         // Set up Bag button and submenu
         bagMenu = findViewById(R.id.bagMenu);
-        Button bagButton = findViewById(R.id.bagButton);
+        ImageButton bagButton = findViewById(R.id.bagButton);
         bagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bagMenu.getVisibility() == View.GONE) {
-                    gameView.pause();
+                    onPause();
                     bagMenu.setVisibility(View.VISIBLE);
                 } else {
                     bagMenu.setVisibility(View.GONE);
-                    gameView.resume();
+                    onResume();
                 }
             }
         });
@@ -55,16 +55,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FaeDexActivity.class);
-                intent.putExtra("faeDex", faeDex); // Pass faeDex as Serializable
+                intent.putExtra("faeDex", faeDex);
                 startActivity(intent);
             }
         });
 
-        // Implement the functionality for other buttons as needed
-        // Button itemsButton = findViewById(R.id.itemsButton);
-        // Button partyButton = findViewById(R.id.partyButton);
-        // Button saveLoadButton = findViewById(R.id.saveLoadButton);
-        // Button settingsButton = findViewById(R.id.settingsButton);
+        //TODO Implement Items
+        //TODO Implement Party
+        //TODO Implement Save/Load
+        //TODO Implement Settings
+
     }
 
     @Override

@@ -15,15 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/bagButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bag"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp" />
-
+        <ImageButton
+                android:id="@+id/bagButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bag_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/bag"
+                android:background="?attr/selectableItemBackgroundBorderless" />
         <!-- Bag Submenu -->
         <LinearLayout
             android:id="@+id/bagMenu"
