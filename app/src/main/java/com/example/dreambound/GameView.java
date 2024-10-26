@@ -149,7 +149,7 @@ public class GameView extends SurfaceView implements Runnable {
         isPlaying = true;
         gameThread = new Thread(this);
         gameThread.start();
-        gameDataManager.LoadGameState(getContext(), player, creatures);
+       //gameDataManager.LoadGameState(getContext(), player, creatures);
         player.setX(player.getX());
         player.setY(player.getY());
     }
