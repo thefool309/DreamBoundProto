@@ -15,6 +15,7 @@ public class CreatureEntity extends gameCharacter implements Serializable {
         setCanMove(true);
         setVelocity(3.0f);
         initPaint(Color.BLUE);
+        this.stats.Health = 10;
     }
 
     //draw

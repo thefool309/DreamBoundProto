@@ -45,7 +45,7 @@ public class GameView extends SurfaceView implements Runnable {
         gameDataManager = new GameDataManager();
         createObjects();
         startEngineAndPullData();
-        gameDataManager.LoadGameState(context, player, creatures);
+        //gameDataManager.LoadGameState(context, player, creatures);
         targetX = player.getX();
         targetY = player.getY();
         collisionHandler = new CollisionHandler(context, collidables);
@@ -97,8 +97,6 @@ public class GameView extends SurfaceView implements Runnable {
         for (CreatureEntity entity: creatures) {
             entity.followPlayer(player);
         }
-
-        creatureEntity.followPlayer(player);
         collisionHandler.HandleCollision();
         checkBoundaries();
     }
@@ -176,10 +174,14 @@ public class GameView extends SurfaceView implements Runnable {
 
     public void removeDefeatedEnemy() {
         // Remove the creature entity from the list of game objects and collidables
-        if (creatureEntity != null && creatures.contains(creatureEntity)) {
-            creatures.remove(creatureEntity);
+       try{
+            allObjects.remove(creatureEntity);
             collidables.remove(creatureEntity);
             creatureEntity = null; // Mark as null to prevent future references
-        }
+       }
+       catch (Exception e){
+           Log.i(" creature not present", "Error: " + e.getMessage());
+       }
+
     }
 }

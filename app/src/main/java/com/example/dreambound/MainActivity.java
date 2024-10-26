@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements CollisionHandler.
                 if (gameView != null) {
                     gameView.pause();
                     gameView.setVisibility(View.GONE);
+
                 }
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
