@@ -61,7 +61,7 @@ public class GameEngine {
         Bitmap topAndBottom = BitmapFactory.decodeResource(context.getResources(),R.drawable.wall1_3);
         //Bitmap wall 2 & 4
         Bitmap leftAndRight = BitmapFactory.decodeResource(context.getResources(),R.drawable.walls2_4);
-        //iwallX = image wallX
+        //iwallX = image wallX ie; Bitmap iWall5 is image for wall 5
         Bitmap iWall5 = BitmapFactory.decodeResource(context.getResources(),R.drawable.wall_5);
         Bitmap iWall6 = BitmapFactory.decodeResource(context.getResources(),R.drawable.wall_6);
         Bitmap iWall7 = BitmapFactory.decodeResource(context.getResources(),R.drawable.wall_7);
