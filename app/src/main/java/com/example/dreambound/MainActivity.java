@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements CollisionHandler.
     @Override
     protected void onResume() {
         super.onResume();
-        gameView.resume();
+        try{
+            gameView.resume();
+        } catch (Exception e) {
+
+        }
     }
 }
