@@ -43,6 +43,7 @@ public class CollisionHandler {
     void HandleCollision() {
         for (GameObject object : objects) {
             for (GameObject target : objects) {
+                Log.i("Collision Handler", "Checking collision between " + object + " and " + target);
                 if (target == object) {
                     continue;
                 }

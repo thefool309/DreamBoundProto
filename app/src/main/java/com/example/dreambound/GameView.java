@@ -19,6 +19,7 @@ public class GameView extends SurfaceView implements Runnable {
     private CreatureEntity creatureEntity;
     private SurfaceHolder surfaceHolder;
     private float targetX, targetY;
+    private static final float playerMovementSpeed = 5.0f;
     private static final float enemiesDetectionRadius = 400.0f;
 
     private long startTime, loopTime;
@@ -170,6 +171,15 @@ public class GameView extends SurfaceView implements Runnable {
             Thread.sleep(17);
         } catch (InterruptedException e) {
             Log.e("Interrupted", "Interrupted while sleeping");    //cleaned up exception to get more receptive feedback
+        }
+    }
+
+    public void removeDefeatedEnemy() {
+        // Remove the creature entity from the list of game objects and collidables
+        if (creatureEntity != null && creatures.contains(creatureEntity)) {
+            creatures.remove(creatureEntity);
+            collidables.remove(creatureEntity);
+            creatureEntity = null; // Mark as null to prevent future references
         }
     }
 }

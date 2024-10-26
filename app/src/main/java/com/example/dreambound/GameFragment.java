@@ -12,6 +12,16 @@ public class GameFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         gameView = new GameView(getActivity());
+
+        // Check if an enemy was defeated
+        Bundle args = getArguments();
+        if (args != null && args.getBoolean("All enemies are defeated. You win!", false)) {
+            // Update the game state to remove the defeated enemy
+            if (gameView != null) {
+                gameView.removeDefeatedEnemy();
+            }
+        }
+
         return gameView;
     }
 
