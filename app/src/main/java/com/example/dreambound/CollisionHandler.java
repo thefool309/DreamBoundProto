@@ -44,34 +44,37 @@ public class CollisionHandler {
     }
 
     void HandleCollision() {
-        for (GameObject object : objects) {
+        for (GameObject object : collideables) {
             for (GameObject target : objects) {
-                Log.i("Collision Handler", "Checking collision between " + object + " and " + target);
+                if (!target.getHasCollision() || !object.getHasCollision()) {
+                    continue;
+                }
+                else if (object.checkCollision(target)) {
+                    if(object.getIsPlayer() || target.getIsPlayer()) {
+                        collisionWithObjectEvent(object, target);
+
+                    }
+                    else {
+                        collisionFromCreaturesToObjectsEvent();
+                    }
+
+                }
+            }
+        }
+        for (GameObject object : collideables) {
+            for (GameObject target : collideables) {
                 if (target == object) {
                     continue;
                 }
-                else if (!target.getHasCollision() || !object.getHasCollision()) {
+                if (!target.getHasCollision() || !object.getHasCollision()) {
                     continue;
                 }
-                else if (checkCollision(object, target)) {
-                    if(object.getIsCharacter() || target.getIsCharacter()) {
-                        if(object.getIsPlayer() || target.getIsPlayer()) {
-                            if (object.getIsCreature() || target.getIsCreature()) {
-                                collisionWithCreatureEntitiesEvent();
-                                if(object.getIsCreature()) {
-                                    creatureToRemove = object;
-                                }
-                                if (target.getIsCreature()) {
-                                    creatureToRemove = target;
-                                }
-                            }
-                            else {
-                                collisionWithObjectEvent();
-                            }
-                        }
-                        else {
-                            collisionFromCreaturesToObjectsEvent();
-                        }
+                else if (object.checkCollision(target)) {
+                    if (object.getIsPlayer() || target.getIsPlayer()) {
+                        collisionWithCreatureEntitiesEvent();
+                    }
+                    else {
+                        collisionFromCreaturesToObjectsEvent();
                     }
                 }
             }
