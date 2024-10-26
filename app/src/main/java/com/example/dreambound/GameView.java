@@ -16,7 +16,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Thread gameThread = new Thread(this);
     private boolean isPlaying;
     private Player player;
-    private CreatureEntity creatureEntity;
+    private GameObject creatureEntityToRemove = new GameObject(0, 0, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
     private SurfaceHolder surfaceHolder;
     private float targetX, targetY;
     private static final float playerMovementSpeed = 5.0f;
@@ -48,7 +48,7 @@ public class GameView extends SurfaceView implements Runnable {
         //gameDataManager.LoadGameState(context, player, creatures);
         targetX = player.getX();
         targetY = player.getY();
-        collisionHandler = new CollisionHandler(context, collidables);
+        collisionHandler = new CollisionHandler(context, collidables, creatureEntityToRemove);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void createObjects() {
         player = new Player(100, 500, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
-        creatureEntity = new CreatureEntity(2200, 500, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
+        creatureEntityToRemove = new CreatureEntity(2200, 500, Constants.CHUNK_SIZE, Constants.CHUNK_SIZE);
         bush1 = new Obstacle(1000, 500);
         walkOnMe1 = new Tile(1000, 400);
         walkOnMe2 = new Tile(1000, 600);
@@ -175,9 +175,9 @@ public class GameView extends SurfaceView implements Runnable {
     public void removeDefeatedEnemy() {
         // Remove the creature entity from the list of game objects and collidables
        try{
-            allObjects.remove(creatureEntity);
-            collidables.remove(creatureEntity);
-            creatureEntity = null; // Mark as null to prevent future references
+            allObjects.remove(creatureEntityToRemove);
+            collidables.remove(creatureEntityToRemove);
+            creatureEntityToRemove = null; // Mark as null to prevent future references
        }
        catch (Exception e){
            Log.i(" creature not present", "Error: " + e.getMessage());

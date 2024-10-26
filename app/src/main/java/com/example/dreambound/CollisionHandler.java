@@ -13,14 +13,17 @@ public class CollisionHandler {
     float gridHeight;
     private ArrayList<GameObject> objects;
     private CollisionListener listener;
+    GameObject creatureToRemove = null;
+
 
     interface CollisionListener {
         void onCollisionWithCreature();
     }
 
-    CollisionHandler(Context context, ArrayList<GameObject> objects) {
+    CollisionHandler(Context context, ArrayList<GameObject> objects, GameObject creatureToRemove) {
         this.context = context;
         this.objects = objects;
+        this.creatureToRemove = creatureToRemove;
         if (context instanceof CollisionListener) {
             this.listener = (CollisionListener) context;
         } else {
@@ -55,6 +58,12 @@ public class CollisionHandler {
                         if(object.getIsPlayer() || target.getIsPlayer()) {
                             if (object.getIsCreature() || target.getIsCreature()) {
                                 collisionWithCreatureEntitiesEvent();
+                                if(object.getIsCreature()) {
+                                    creatureToRemove = object;
+                                }
+                                if (target.getIsCreature()) {
+                                    creatureToRemove = target;
+                                }
                             }
                             else {
                                 collisionWithObjectEvent();
