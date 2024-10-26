@@ -15,7 +15,6 @@ public class Player extends gameCharacter implements Serializable {
         initPaint(Color.RED);
         setCanMove();
         setVelocity(5.00f);
-
     }
     //accessors and mutators
 

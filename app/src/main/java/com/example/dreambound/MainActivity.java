@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity implements CollisionHandler.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gameView = new GameView(this);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new GameFragment())
                 .commit();

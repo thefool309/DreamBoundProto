@@ -33,7 +33,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Tile walkOnMe1;
     private Tile walkOnMe2;
 
-    private ArrayList<GameObject> creatures = new ArrayList<>();
+    private ArrayList<CreatureEntity> creatures = new ArrayList<>();
     private ArrayList<GameObject> collidables = new ArrayList<>();
     private ArrayList<GameObject> staticObjects = new ArrayList<>();
     private ArrayList<GameObject> allObjects = new ArrayList<>();
@@ -42,6 +42,9 @@ public class GameView extends SurfaceView implements Runnable {
         super(context);
         surfaceHolder = getHolder();
         gameDataManager = new GameDataManager();
+        createObjects();
+        gameEngine = new GameEngine();
+        gameEngine.
         gameDataManager.LoadGameState(context, player, creatures);
         targetX = player.getX();
         targetY = player.getY();
@@ -95,7 +98,7 @@ public class GameView extends SurfaceView implements Runnable {
             entity.followPlayer(player);
         }
 
-        creatureEntity.followPlayer(player, enemiesDetectionRadius);
+        creatureEntity.followPlayer(player);
         collisionHandler.HandleCollision();
         checkBoundaries();
     }

@@ -9,14 +9,6 @@ import java.util.ArrayList;
 public class GameDataManager {
     private static final String FILE_NAME = "gameState.dat";
 
-    public void LoadMapData(){
-
-    }
-
-    public void SaveMapData(){
-
-    }
-
 
     public void SaveGameState(Context context, Player player, ArrayList<CreatureEntity> entities) {
         try {
@@ -59,7 +51,6 @@ public class GameDataManager {
                 Log.d("GameDataManager", "Loaded game state!");
             } catch (Exception e) {
                 Log.d("GameDataManager", "Loading game state failed!" + e.getMessage());
-                e.printStackTrace();
             }
         }else {
             Log.d("GameDataManager", "No game state found!");

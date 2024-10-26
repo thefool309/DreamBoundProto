@@ -46,7 +46,7 @@ public class CollisionHandler {
                 if (target == object) {
                     continue;
                 }
-                else if (target.getNoCollision() || object.getNoCollision()) {
+                else if (!target.getHasCollision() || !object.getHasCollision()) {
                     continue;
                 }
                 else if (checkCollision(object, target)) {
