@@ -49,7 +49,7 @@ public class GameView extends SurfaceView implements Runnable {
         //gameDataManager.LoadGameState(context, player, creatures);
         targetX = player.getX();
         targetY = player.getY();
-        collisionHandler = new CollisionHandler(context, collidables, creatureEntityToRemove);
+        collisionHandler = new CollisionHandler(context, collidables, staticObjects);
     }
 
     @Override
