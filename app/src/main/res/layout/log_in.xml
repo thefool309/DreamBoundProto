@@ -35,6 +35,7 @@
             android:textAlignment="center"
             android:background="@drawable/rounded_corner"
             android:inputType="textPassword"
+            android:id="@+id/password_input"
             android:layout_marginTop="150dp"
             android:gravity="center"/>
     <Button

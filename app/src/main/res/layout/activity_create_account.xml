@@ -34,6 +34,7 @@
             android:textAlignment="center"
             android:background="@drawable/rounded_corner"
             android:inputType="textPassword"
+            android:id="@+id/password_text"
             android:layout_marginTop="150dp"
             android:gravity="center"/>
 

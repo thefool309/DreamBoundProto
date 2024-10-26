@@ -11,4 +11,8 @@
     <string name="register">Register</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
     <string name="send_verification_code">Send verification code</string>
+    <string name="title_activity_settings_menu">SettingsMenu</string>
+    <string name="log_out">Log Out</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
 </resources>
