@@ -78,7 +78,7 @@ public class GameEngine {
         wall7 = new Obstacle(600,42,80 , 550,iWall7);
         wall8 = new Obstacle(1550,200,550 , 550,iWall8);
 
-        //Bitmap for GRASS
+        //Bitmap for GRASS texture
         Bitmap grass = BitmapFactory.decodeResource(context.getResources(), R.drawable._grass);
         grassTile = new Tile(0, 0,2400,1000, grass);
 
